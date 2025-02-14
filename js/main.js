@@ -5,12 +5,6 @@ function checkLengthString(string, Maxlength) {
 
 checkLengthString('', 140);
 
-// id, число — идентификатор описания.Это число от 1 до 25. Идентификаторы не должны повторяться.
-// url, строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
-// description, строка — описание фотографии. Описание придумайте самостоятельно.
-// likes, число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
-// comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии вы определяете на своё усмотрение. Все комментарии генерируются случайным образом.
-
 const DESCRIPTION_PHOTO_WHAT = [
   'закат',
   'рассвет',
@@ -40,6 +34,7 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 
 const SIMILAR_DESCRIPTION_COUNT = 25;
+const SIMILAR_COMMENT_COUNT = 2;
 
 // Возвращает случайное целое число из диапазона
 const getRandomPositiveInteger = (a, b) => {
@@ -52,7 +47,16 @@ const getRandomPositiveInteger = (a, b) => {
 // Возвращает случайный элемент массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-// Генерирует ID фотогрфи
+
+const createCommentPhoto = () => ({
+  id: 135,
+  avatar: 'img/avatar-6.svg',
+  message: 'В целом всё неплохо. Но не всё.',
+  name: 'Артём',
+});
+
+const similarComment = Array.from({ length: SIMILAR_COMMENT_COUNT }, createCommentPhoto);
+
 let lastUsedId = 1;
 let lastUsedUrlNamber = 1;
 
@@ -61,7 +65,7 @@ const createDescriptionPhoto = () => ({
   urlPhoto: `photos/${lastUsedUrlNamber++}.jpg`,
   descriptionPhoto: `${getRandomArrayElement(DESCRIPTION_PHOTO_WHAT)} ${getRandomArrayElement(DESCRIPTION_PHOTO_WHERE)}`,
   likesPhoto: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-  commentsPhoto: [],
+  commentsPhoto: similarComment,
 });
 
 const similarDescriptionPhoto = Array.from({ length: SIMILAR_DESCRIPTION_COUNT }, createDescriptionPhoto);
