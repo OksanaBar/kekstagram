@@ -1,7 +1,5 @@
 // Проверяет длину строки
-function checkLengthString(string, Maxlength) {
-  return string.length <= Maxlength;
-}
+const checkLengthString = (string, Maxlength) => string.length <= Maxlength;
 
 checkLengthString('', 140);
 
@@ -30,11 +28,36 @@ const DESCRIPTION_PHOTO_WHERE = [
   'у моего дома',
 ];
 
+const COMMENT_TEXT = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+];
+
+const NAME = [
+  'Артём',
+  'Егор',
+  'Ирина',
+  'Кирилл',
+  'Алёна',
+  'Татьяна',
+  'Денис',
+  'Анна',
+];
+
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 
 const SIMILAR_DESCRIPTION_COUNT = 25;
-const SIMILAR_COMMENT_COUNT = 2;
+
+const MIN_COMMENT = 1;
+const MAX_COMMENT = 3;
+
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
 
 // Возвращает случайное целое число из диапазона
 const getRandomPositiveInteger = (a, b) => {
@@ -47,15 +70,15 @@ const getRandomPositiveInteger = (a, b) => {
 // Возвращает случайный элемент массива
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
+// Создаёт комментарий
+let lastUsedIdComment = 1;
 
 const createCommentPhoto = () => ({
-  id: 135,
-  avatar: 'img/avatar-6.svg',
-  message: 'В целом всё неплохо. Но не всё.',
-  name: 'Артём',
+  idComment: lastUsedIdComment++,
+  avatar: `img/avatar-${getRandomPositiveInteger(MIN_AVATAR, MAX_AVATAR)}.svg`,
+  message: getRandomArrayElement(COMMENT_TEXT),
+  name: getRandomArrayElement(NAME),
 });
-
-const similarComment = Array.from({ length: SIMILAR_COMMENT_COUNT }, createCommentPhoto);
 
 let lastUsedId = 1;
 let lastUsedUrlNamber = 1;
@@ -65,7 +88,7 @@ const createDescriptionPhoto = () => ({
   urlPhoto: `photos/${lastUsedUrlNamber++}.jpg`,
   descriptionPhoto: `${getRandomArrayElement(DESCRIPTION_PHOTO_WHAT)} ${getRandomArrayElement(DESCRIPTION_PHOTO_WHERE)}`,
   likesPhoto: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-  commentsPhoto: similarComment,
+  commentsPhoto: Array.from({ length: getRandomPositiveInteger(MIN_COMMENT, MAX_COMMENT) }, createCommentPhoto),
 });
 
 const similarDescriptionPhoto = Array.from({ length: SIMILAR_DESCRIPTION_COUNT }, createDescriptionPhoto);
