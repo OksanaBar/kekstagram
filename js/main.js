@@ -1,6 +1,4 @@
 import {createDescriptionPhotos} from './data.js';
-import './thumbnail.js';
+import {renderPictures} from './picture.js';
 
-console.log(
-  createDescriptionPhotos()
-);
+renderPictures(createDescriptionPhotos());
