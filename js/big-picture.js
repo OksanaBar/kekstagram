@@ -7,6 +7,7 @@ const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 const cancelButton = document.querySelector('.big-picture__cancel');
 
+//Создание комментария
 const createComment = ({ avatar, name, message }) => {
   const comment = document.createElement('li');
   comment.innerHTML =
@@ -20,6 +21,7 @@ const createComment = ({ avatar, name, message }) => {
   return comment;
 };
 
+//Отрисовка комментариев
 const renderComments = (comments) => {
   commentList.innerHTML = '';
 
@@ -32,6 +34,7 @@ const renderComments = (comments) => {
   commentList.append(fragment);
 };
 
+//Закрытие окна
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -49,14 +52,20 @@ const onCancelButtonClick = () => {
   hideBigPicture();
 };
 
+cancelButton.addEventListener('click', onCancelButtonClick);
+
+//Отрисовка большого фото
 const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, commentsPhoto }) => {
   bigPicture.querySelector('.big-picture__img img').src = urlPhoto;
   bigPicture.querySelector('.big-picture__img img').alt = descriptionPhoto;
   bigPicture.querySelector('.likes-count').textContent = likesPhoto;
   bigPicture.querySelector('.comments-count').textContent = commentsPhoto.length;
   bigPicture.querySelector('.social__caption').textContent = descriptionPhoto;
+
+  return bigPicture;
 };
 
+//Открытие окна
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -67,7 +76,5 @@ const showBigPicture = (data) => {
   renderPictureDetails(data);
   renderComments(data.commentsPhoto);
 };
-
-cancelButton.addEventListener('click', onCancelButtonClick);
 
 export {showBigPicture};
