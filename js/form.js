@@ -79,8 +79,12 @@ pristine.addValidator(
 
 //ОШИБКА
 const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+
+  // evt.preventDefault();
+  // pristine.validate();
 };
 
 form.addEventListener('submit', onFormSubmit);
