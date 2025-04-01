@@ -3,7 +3,7 @@ import {isEscapeKey} from './util.js';
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 const commentList = document.querySelector('.social__comments');
-const commentCount = document.querySelector('.social__comment-count');
+// const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 const cancelButton = document.querySelector('.big-picture__cancel');
 
@@ -54,7 +54,7 @@ const onCancelButtonClick = () => {
 
 cancelButton.addEventListener('click', onCancelButtonClick);
 
-//Отрисовка большого фото
+//Отрисовка полноразмерного изображения
 const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, commentsPhoto }) => {
   bigPicture.querySelector('.big-picture__img img').src = urlPhoto;
   bigPicture.querySelector('.big-picture__img img').alt = descriptionPhoto;
@@ -65,16 +65,25 @@ const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, comments
   return bigPicture;
 };
 
+const showMore = (asd) => {
+  const showMoreComment = () => {
+    renderComments(asd.commentsPhoto.slice(5, 10));
+  };
+
+  commentsLoader.addEventListener('click', showMoreComment);
+};
+
 //Открытие окна
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+
   document.addEventListener('keydown', onEscKeyDown);
 
   renderPictureDetails(data);
-  renderComments(data.commentsPhoto);
+  renderComments(data.commentsPhoto.slice(0, 5));
+
+  showMore(data);
 };
 
 export {showBigPicture};
