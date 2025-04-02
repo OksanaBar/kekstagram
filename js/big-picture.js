@@ -3,11 +3,12 @@ import {isEscapeKey} from './util.js';
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 const commentList = document.querySelector('.social__comments');
-// const commentCount = document.querySelector('.social__comment-count');
+const commentItems = commentList.children;
+const commentsDisplayed = document.querySelector('.comments-displayed');
 const commentsLoader = document.querySelector('.comments-loader');
 const cancelButton = document.querySelector('.big-picture__cancel');
 
-//Создание комментария
+// Создание комментария
 const createComment = ({ avatar, name, message }) => {
   const comment = document.createElement('li');
   comment.innerHTML =
@@ -21,7 +22,7 @@ const createComment = ({ avatar, name, message }) => {
   return comment;
 };
 
-//Отрисовка комментариев
+// Отрисовка комментариев
 const renderComments = (comments) => {
   commentList.innerHTML = '';
 
@@ -34,10 +35,11 @@ const renderComments = (comments) => {
   commentList.append(fragment);
 };
 
-//Закрытие окна
+// Закрытие окна
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onEscKeyDown);
 };
 
@@ -54,7 +56,7 @@ const onCancelButtonClick = () => {
 
 cancelButton.addEventListener('click', onCancelButtonClick);
 
-//Отрисовка полноразмерного изображения
+// Отрисовка полноразмерного изображения
 const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, commentsPhoto }) => {
   bigPicture.querySelector('.big-picture__img img').src = urlPhoto;
   bigPicture.querySelector('.big-picture__img img').alt = descriptionPhoto;
@@ -65,18 +67,35 @@ const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, comments
   return bigPicture;
 };
 
-const showMore = (asd) => {
+// Скрытие кнопки Загрузить ещё..
+const hideShowMoreButton = (comments) => {
+  commentsLoader.classList.remove('hidden');
+  if (commentItems.length >= comments.commentsPhoto.length) {
+    commentsLoader.classList.add('hidden');
+  }
+};
+
+// Отображение дополнительных комментариев
+const showMore = (comments) => {
+  commentsDisplayed.textContent = commentItems.length;
+  hideShowMoreButton(comments);
+
+  let maxComment = 5;
   const showMoreComment = () => {
-    renderComments(asd.commentsPhoto.slice(5, 10));
+    maxComment = maxComment + 5;
+    renderComments(comments.commentsPhoto.slice(0, maxComment));
+    commentsDisplayed.textContent = commentItems.length;
+    hideShowMoreButton(comments);
   };
 
   commentsLoader.addEventListener('click', showMoreComment);
 };
 
-//Открытие окна
+// Открытие окна
 const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
+  commentList.innerHTML = '';
 
   document.addEventListener('keydown', onEscKeyDown);
 

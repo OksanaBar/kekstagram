@@ -32,7 +32,7 @@ const MAX_LIKES = 200;
 const SIMILAR_DESCRIPTION_COUNT = 25;
 
 const MIN_COMMENT = 1;
-const MAX_COMMENT = 3;
+const MAX_COMMENT = 14;
 
 let lastUsedId = 1;
 let lastUsedUrlNamber = 1;
