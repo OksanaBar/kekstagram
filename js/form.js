@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {onSmallerButtonClick, onBiggerButtonClick, resetScale} from './Image-scaling.js';
+import {onFormChange} from './image-effect.js';
 
 const form = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -10,6 +11,7 @@ const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
+const sliderElement = document.querySelector('.effect-level__slider');
 
 const MAX_HASHTAG_COUNT = 5;
 const UNVALID_SYMBOLS =  /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
@@ -49,6 +51,7 @@ hideButton.addEventListener('click', onHideButtonClick);
 const showEditorPhoto = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  sliderElement.classList.add('hidden');
 
   document.addEventListener('keydown', onEscKeyDown);
 };
@@ -58,6 +61,9 @@ uploadFile.addEventListener('change', showEditorPhoto);
 // Масштабирование изображения
 smallerButton.addEventListener('click', onSmallerButtonClick);
 biggerButton.addEventListener('click', onBiggerButtonClick);
+
+// Наложение эффекта
+form.addEventListener('change', onFormChange);
 
 // Валидация хэш-тегов
 const hasValidSymbols = (string) => UNVALID_SYMBOLS.test(string);
