@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {onSmallerButtonClick, onBiggerButtonClick, resetScale} from './Image-scaling.js';
 
 const form = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -7,6 +8,8 @@ const hideButton = form.querySelector('.img-upload__cancel');
 const uploadFile = form.querySelector('input[type=file]');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const smallerButton = document.querySelector('.scale__control--smaller');
+const biggerButton = document.querySelector('.scale__control--bigger');
 
 const MAX_HASHTAG_COUNT = 5;
 const UNVALID_SYMBOLS =  /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
@@ -20,6 +23,7 @@ const pristine = new Pristine(form, {
 const hideEditorPhoto = () => {
   form.reset();
   pristine.reset();
+  resetScale();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.remuveEventListener('keydown', onEscKeyDown);
@@ -51,6 +55,10 @@ const showEditorPhoto = () => {
 
 uploadFile.addEventListener('change', showEditorPhoto);
 
+// Масштабирование изображения
+smallerButton.addEventListener('click', onSmallerButtonClick);
+biggerButton.addEventListener('click', onBiggerButtonClick);
+
 // Валидация хэш-тегов
 const hasValidSymbols = (string) => UNVALID_SYMBOLS.test(string);
 
@@ -77,14 +85,10 @@ pristine.addValidator(
   'Неправильно заполнены хэштеги'
 );
 
-//ОШИБКА
 const onFormSubmit = (evt) => {
   if (!pristine.validate()) {
     evt.preventDefault();
   }
-
-  // evt.preventDefault();
-  // pristine.validate();
 };
 
 form.addEventListener('submit', onFormSubmit);
