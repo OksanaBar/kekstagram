@@ -7,13 +7,13 @@ const otherPictureTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 const createPicture = (data) => {
-  const { urlPhoto, likesPhoto, commentsPhoto, descriptionPhoto } = data;
+  const { url, likes, comments, description } = data;
   const picture = otherPictureTemplate.cloneNode(true);
 
-  picture.querySelector('.picture__img').src = urlPhoto;
-  picture.querySelector('.picture__img').alt = descriptionPhoto;
-  picture.querySelector('.picture__comments').textContent = commentsPhoto.length;
-  picture.querySelector('.picture__likes').textContent = likesPhoto;
+  picture.querySelector('.picture__img').src = url;
+  picture.querySelector('.picture__img').alt = description;
+  picture.querySelector('.picture__comments').textContent = comments.length;
+  picture.querySelector('.picture__likes').textContent = likes;
 
   picture.addEventListener('click', () => {
     showBigPicture(data);
@@ -32,4 +32,4 @@ const renderPictures = (pictures) => {
   otherPicturesContainer.append(otherPicturesFragment);
 };
 
-export {renderPictures};
+export { renderPictures };

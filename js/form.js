@@ -91,10 +91,25 @@ pristine.addValidator(
   'Неправильно заполнены хэштеги'
 );
 
-const onFormSubmit = (evt) => {
-  if (!pristine.validate()) {
+const onFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-  }
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      // blockSubmitButton();
+      await cb(new FormData(form));
+      // unblockSubmitButton();
+    }
+  });
 };
 
-form.addEventListener('submit', onFormSubmit);
+// const onFormSubmit = (evt) => {
+//   if (!pristine.validate()) {
+//     evt.preventDefault();
+//   }
+// };
+
+// form.addEventListener('submit', onFormSubmit);
+
+export { onFormSubmit, hideEditorPhoto };

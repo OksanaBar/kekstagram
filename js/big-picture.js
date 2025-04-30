@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
@@ -57,12 +57,12 @@ const onCancelButtonClick = () => {
 cancelButton.addEventListener('click', onCancelButtonClick);
 
 // Отрисовка полноразмерного изображения
-const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, commentsPhoto }) => {
-  bigPicture.querySelector('.big-picture__img img').src = urlPhoto;
-  bigPicture.querySelector('.big-picture__img img').alt = descriptionPhoto;
-  bigPicture.querySelector('.likes-count').textContent = likesPhoto;
-  bigPicture.querySelector('.comments-count').textContent = commentsPhoto.length;
-  bigPicture.querySelector('.social__caption').textContent = descriptionPhoto;
+const renderPictureDetails = ({ url, likes, description, comments }) => {
+  bigPicture.querySelector('.big-picture__img img').src = url;
+  bigPicture.querySelector('.big-picture__img img').alt = description;
+  bigPicture.querySelector('.likes-count').textContent = likes;
+  bigPicture.querySelector('.comments-count').textContent = comments.length;
+  bigPicture.querySelector('.social__caption').textContent = description;
 
   return bigPicture;
 };
@@ -70,7 +70,7 @@ const renderPictureDetails = ({ urlPhoto, likesPhoto, descriptionPhoto, comments
 // Скрытие кнопки Загрузить ещё..
 const hideShowMoreButton = (comments) => {
   commentsLoader.classList.remove('hidden');
-  if (commentItems.length >= comments.commentsPhoto.length) {
+  if (commentItems.length >= comments.comments.length) {
     commentsLoader.classList.add('hidden');
   }
 };
@@ -83,7 +83,7 @@ const showMore = (comments) => {
   let maxComment = 5;
   const showMoreComment = () => {
     maxComment = maxComment + 5;
-    renderComments(comments.commentsPhoto.slice(0, maxComment));
+    renderComments(comments.comments.slice(0, maxComment));
     commentsDisplayed.textContent = commentItems.length;
     hideShowMoreButton(comments);
   };
@@ -100,9 +100,9 @@ const showBigPicture = (data) => {
   document.addEventListener('keydown', onEscKeyDown);
 
   renderPictureDetails(data);
-  renderComments(data.commentsPhoto.slice(0, 5));
+  renderComments(data.comments.slice(0, 5));
 
   showMore(data);
 };
 
-export {showBigPicture};
+export { showBigPicture };
