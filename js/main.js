@@ -1,18 +1,16 @@
-// import {createDescriptionPhotos} from './data.js';
 import {renderPictures} from './picture.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
 import { onFormSubmit, hideEditorPhoto } from './form.js';
-
-// renderPictures(createDescriptionPhotos());
+import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const onSendDataSuccess = () => {
   hideEditorPhoto();
-//  showSuccessMessage();
+  showSuccessMessage();
 };
 
 const onSendDataError = () => {
-//  showErrorMessage();
+  showErrorMessage();
 };
 
 onFormSubmit(async (data) => {

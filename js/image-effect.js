@@ -107,6 +107,11 @@ const onSliderUpdate = () => {
   effectLevel.value = sliderValue;
 };
 
+const resetEffects = () => {
+  selectedEffect = DEFAULT_EFFECT;
+  updateSlider();
+};
+
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 const onFormChange = (evt) => {
@@ -118,4 +123,4 @@ const onFormChange = (evt) => {
   updateSlider();
 };
 
-export {onFormChange};
+export { onFormChange, resetEffects };
