@@ -25,6 +25,14 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__error',
 });
 
+const showEditorPhoto = () => {
+  overlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  sliderElement.classList.add('hidden');
+
+  document.addEventListener('keydown', onEscKeyDown);
+};
+
 const hideEditorPhoto = () => {
   form.reset();
   pristine.reset();
@@ -32,7 +40,8 @@ const hideEditorPhoto = () => {
   resetEffects();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.remuveEventListener('keydown', onEscKeyDown);
+  // Мешает показывать уведомления отправки.
+  // document.remuveEventListener('keydown', onEscKeyDown);
 };
 
 const isTextFieldFocused = () =>
@@ -52,13 +61,13 @@ const onHideButtonClick = () => {
 
 hideButton.addEventListener('click', onHideButtonClick);
 
-const showEditorPhoto = () => {
-  overlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  sliderElement.classList.add('hidden');
+// const showEditorPhoto = () => {
+//   overlay.classList.remove('hidden');
+//   body.classList.add('modal-open');
+//   sliderElement.classList.add('hidden');
 
-  document.addEventListener('keydown', onEscKeyDown);
-};
+//   document.addEventListener('keydown', onEscKeyDown);
+// };
 
 const onFileInputChange = () => {
   showEditorPhoto();

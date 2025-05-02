@@ -1,4 +1,4 @@
-import {renderPictures} from './picture.js';
+import { renderPictures } from './picture.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
 import { onFormSubmit, hideEditorPhoto } from './form.js';
@@ -10,7 +10,9 @@ const onSendDataSuccess = () => {
 };
 
 const onSendDataError = () => {
+  hideEditorPhoto();
   showErrorMessage();
+
 };
 
 onFormSubmit(async (data) => {
