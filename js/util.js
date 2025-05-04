@@ -18,7 +18,6 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 // Показывает уведомление
-
 const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
@@ -40,9 +39,19 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Устранение дребезга
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 export {
   getRandomArrayElement,
   getRandomPositiveInteger,
   isEscapeKey,
-  showAlert
+  showAlert,
+  debounce
 };

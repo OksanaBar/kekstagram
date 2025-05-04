@@ -61,14 +61,6 @@ const onHideButtonClick = () => {
 
 hideButton.addEventListener('click', onHideButtonClick);
 
-// const showEditorPhoto = () => {
-//   overlay.classList.remove('hidden');
-//   body.classList.add('modal-open');
-//   sliderElement.classList.add('hidden');
-
-//   document.addEventListener('keydown', onEscKeyDown);
-// };
-
 const onFileInputChange = () => {
   showEditorPhoto();
 };

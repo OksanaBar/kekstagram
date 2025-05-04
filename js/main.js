@@ -3,6 +3,13 @@ import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
 import { onFormSubmit, hideEditorPhoto } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+import { setOnFilterClick, filterImgOn, filterPictures } from './filter.js';
+
+const onGetDataSuccess = (data) => {
+  filterImgOn(data);
+  renderPictures(filterPictures());
+  setOnFilterClick(renderPictures);
+};
 
 const onSendDataSuccess = () => {
   hideEditorPhoto();
@@ -19,4 +26,4 @@ onFormSubmit(async (data) => {
   await sendData(onSendDataSuccess, onSendDataError, data);
 });
 
-getData(renderPictures, showAlert);
+getData(onGetDataSuccess, showAlert);
